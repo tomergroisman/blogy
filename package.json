@@ -1,0 +1,57 @@
+{
+  "name": "blogy",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android && npm run fake-server",
+    "ios": "react-native run-ios && npm run fake-server-localhost",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "fake-server": "json-server --watch db.json --host 10.100.102.22",
+    "fake-server-localhost": "json-server --watch db.json",
+    "start-e2e": "RN_SRC_EXT=e2e.ts react-native start",
+    "e2e": "detox test --configuration ios"
+  },
+  "dependencies": {
+    "react": "17.0.1",
+    "react-native": "0.64.0",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-get-random-values": "^1.6.0",
+    "react-native-navigation": "^7.12.0",
+    "react-native-reanimated": "^2.0.1",
+    "react-native-ui-lib": "^5.22.0",
+    "remx": "^4.0.108-rc.4",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@types/jest": "^26.0.20",
+    "@types/react-native": "^0.64.0",
+    "@types/react-test-renderer": "^16.9.2",
+    "babel-jest": "^26.6.3",
+    "detox": "^18.8.1",
+    "eslint": "^7.14.0",
+    "jest": "^26.6.3",
+    "jest-circus": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.64.0",
+    "react-test-renderer": "17.0.1",
+    "typescript": "^3.8.3"
+  },
+  "resolutions": {
+    "@types/react": "^17"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
