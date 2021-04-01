@@ -1,4 +1,5 @@
 const driver = require('./firstTest.driver');
+const mockServerApi = require('../src/posts/store/posts.api.e2e.ts')
 
 describe('Example', () => {
     beforeAll(async () => {
@@ -7,6 +8,10 @@ describe('Example', () => {
 
     beforeEach(async () => {
         await device.reloadReactNative();
+    });
+
+    afterEach(() => {
+        mockServerApi.reset();
     });
 
     it('should display the posts list on app launch', async () => {
@@ -24,13 +29,14 @@ describe('Example', () => {
     it('should add a post', async () => {
         const postTitle = "E2E Test";
         const postText = "Thats an e2e test post text";
+        const postId = "4";
 
         await driver.when.pressOn.addPost();
         await driver.when.type.title(postTitle);
         await driver.when.type.text(postText);
         await driver.when.pressOn.savePost();
         await driver.when.scroll.bottomList();
-        await driver.when.pressOn.postTitle(postTitle);
+        await driver.when.pressOn.post(postId);
 
         await expect(driver.get.postView.title()).toHaveText(postTitle);
         await expect(driver.get.postView.text()).toHaveText(postText);

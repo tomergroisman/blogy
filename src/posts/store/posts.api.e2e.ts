@@ -23,26 +23,30 @@ const initialPosts: Post[] = [
 
 let mockServerPosts: Post[] = [...initialPosts];
 
-export function reset(): void {
+function reset(): void {
     mockServerPosts = [...initialPosts];
 }
 
-export function fetchPosts(): Promise<Post[]> {
+function fetchPosts(): Promise<Post[]> {
     const posts = [...mockServerPosts];
     return Promise.resolve(posts);
 }
 
-export function addPost(post: Post): Promise<Post> {
-    mockServerPosts.push(post);
-    return Promise.resolve(post);
+function addPost(post: Post): Promise<Post> {
+    const newPost: Post = {
+        ...post,
+        id: (mockServerPosts.length + 1).toString()
+    }
+    mockServerPosts.push(newPost);
+    return Promise.resolve(newPost);
 }
 
-export function updatePost(updatePost: Post): Promise<Post> {
+function updatePost(updatePost: Post): Promise<Post> {
     mockServerPosts = mockServerPosts.map(post => post.id === updatePost.id ? updatePost : post);
     return Promise.resolve(updatePost);
 }
 
-export function deletePost(postId: string): Promise<boolean> {
+function deletePost(postId: string): Promise<boolean> {
     const idx: number = mockServerPosts.findIndex(post => post.id === postId);
     if (idx !== -1) {
         mockServerPosts.splice(idx, 1);
@@ -50,3 +54,21 @@ export function deletePost(postId: string): Promise<boolean> {
     }
     return Promise.resolve(false);
 }
+
+interface MockServerApi {
+    reset: () => void,
+    fetchPosts(): Promise<Post[]>
+    addPost: (post: Post) => Promise<Post>,
+    updatePost: (updatePost: Post) => Promise<Post>,
+    deletePost: (postId: string) => Promise<boolean>,
+}
+
+const MockServerApi: MockServerApi = {
+    reset,
+    fetchPosts,
+    addPost,
+    updatePost,
+    deletePost
+}
+
+module.exports = MockServerApi;
