@@ -28,18 +28,15 @@ describe('Example', () => {
 
     it('should add a post', async () => {
         const postTitle = "E2E Test";
-        const postText = "Thats an e2e test post text";
         const postId = "4";
 
         await driver.when.pressOn.addPost();
         await driver.when.type.title(postTitle);
-        await driver.when.type.text(postText);
         await driver.when.pressOn.savePost();
         await driver.when.scroll.bottomList();
         await driver.when.pressOn.post(postId);
 
         await expect(driver.get.postView.title()).toHaveText(postTitle);
-        await expect(driver.get.postView.text()).toHaveText(postText);
     });
 
     it('should delete a post', async () => {

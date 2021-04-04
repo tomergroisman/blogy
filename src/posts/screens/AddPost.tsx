@@ -123,8 +123,8 @@ class AddPost extends Component<AddPostProps, AddPostState> {
                     placeholder="Post Text"
                     onChangeText={(value: string) => this.handleChangeText(value, "text")}
                     value={this.state.text}
-                    // expandable
-                    // topBarProps={{ doneLabel: "Done"}}
+                    expandable
+                    topBarProps={{ doneLabel: "Done" }}
                 />
             </View>
         );

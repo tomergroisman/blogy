@@ -5,6 +5,8 @@ const when = {
         savePost: () => get.buttons.savePost().tap(),
         deletePost: () => get.buttons.deletePost().tap(),
         editPost: () => get.buttons.editPost().tap(),
+        // editPostText: () => get.addPost.textField().tap(),
+        doneEditPostText: () => get.buttons.doneType().tap(),
         postTitle: (title) => get.posts.postsListTitle(title).tap()
     },
     type: {
@@ -38,6 +40,7 @@ const get = {
         savePost: () => element(by.id("save-button")),
         deletePost: () => element(by.id("delete-button")),
         editPost: () => element(by.id("edit-button")),
+        doneType: () => element(by.id("done-button")),
     }
 }
 
