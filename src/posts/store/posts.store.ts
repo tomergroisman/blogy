@@ -63,12 +63,7 @@ const setters: PostStoreSetters = remx.setters({
     },
 });
 
-const postsStore: PostStore = {
+export const postsStore: PostStore = {
     ...getters,
     ...setters
-};
-
-// Module export
-module.exports = {
-    postsStore
 };

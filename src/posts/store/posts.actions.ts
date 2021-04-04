@@ -3,6 +3,13 @@ import { postsStore } from './posts.store';
 import * as postsApi from './posts.api';
 import { Post } from '../types';
 
+export interface PostActions {
+    fetchPosts: () => void,
+    addPost: (post: Omit<Post, "id">) => void,
+    updatePost: (post: Post)=> void,
+    deletePost: (postId: string) => void,
+}
+
 // Fetch posts from server and set to store
 export async function fetchPosts() {
     const posts: Post[] = await postsApi.fetchPosts();
@@ -20,8 +27,8 @@ export async function addPost(post: Omit<Post, "id">) {
 
 // Update post on the server and the store
 export async function updatePost(post: Post) {
-    const updatePost = await postsApi.updatePost(post)
-    postsStore.updatePost(updatePost);
+    await postsApi.updatePost(post)
+    postsStore.updatePost(post);
 }
 
 // Delete a post from server and store
