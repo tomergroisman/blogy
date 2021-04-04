@@ -7,6 +7,7 @@ export interface PresenterRoot {
     onSavePressed: (componentId: string, title: string, text: string, postToUpdate?: Post) => void,
 }
 
+// Enable save button if post title is not empty
 export function onChangeTitle(componentId: string, title: string) {
     Navigation.mergeOptions(componentId, {
         topBar: {
@@ -20,6 +21,7 @@ export function onChangeTitle(componentId: string, title: string) {
     });
 }
 
+// Add or update post and dismiss modal on save button click
 export function onSavePressed(componentId: string, title: string, text: string, postToUpdate?: Post) {
     if (postToUpdate) {
         postActions.updatePost({
