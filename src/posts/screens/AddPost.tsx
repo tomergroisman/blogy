@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TextField, Colors } from 'react-native-ui-lib';
 import { Navigation } from 'react-native-navigation';
-import * as postActions from '../store/posts.actions';
+import * as presenter from './AddPost.presenter';
 import { Post, ScreenProps } from '../types';
 
 interface AddPostProps extends ScreenProps {
@@ -47,24 +47,8 @@ class AddPost extends Component<AddPostProps, AddPostState> {
             ...this.state,
             [state]: value
         });
-    }
-    
-    // Save post handler
-    handleSave = () => {
-        if (this.props.updatePost) {
-            postActions.updatePost({
-                ...this.props.updatePost,
-                title: this.state.title,
-                text: this.state.text
-            })
-        }
-        else {
-            const randomImageNumber = Math.floor((Math.random() * 500) + 1);
-            postActions.addPost({
-                title: this.state.title,
-                text: this.state.text,
-                img: `https://picsum.photos/200/200/?image=${randomImageNumber}`
-            });
+        if (state === "title") {
+            presenter.onChangeTitle(this.props.componentId, value)
         }
     }
     
@@ -74,32 +58,18 @@ class AddPost extends Component<AddPostProps, AddPostState> {
             Navigation.dismissModal(this.props.componentId);
         }
         else if (buttonId === "saveBtn") {
-            this.handleSave();
-            Navigation.dismissModal(this.props.componentId);
+            presenter.onSavePressed(
+                this.props.componentId,
+                this.state.title,
+                this.state.text,
+                this.props.updatePost
+            )
         }
     }
 
-    // Return the save button props
-    mergeSaveButton = () => {
-        Navigation.mergeOptions(this.props.componentId, {
-            topBar: {
-                rightButtons: [{
-                    id: 'saveBtn',
-                    text: 'Save',
-                    enabled: !!this.state.title,
-                    testID: "save-button"
-                }]
-            }
-        });
-    }
-
-    // componentDidUpdate callback
-    componentDidUpdate() {
-        this.mergeSaveButton();
-    }
-
+    // componentDidMount callback
     componentDidMount() {
-        this.mergeSaveButton();
+        presenter.onChangeTitle(this.props.componentId, this.props.updatePost?.title || "");
     }
 
     // render callback

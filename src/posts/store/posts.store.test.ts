@@ -75,5 +75,3 @@ describe('Posts Store', () => {
         });
     });
 });
-
-export {}
